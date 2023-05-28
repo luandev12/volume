@@ -11,6 +11,7 @@ import { Layout, Menu, theme } from 'antd';
 import NavLink from './nav-link';
 
 import 'antd/dist/reset.css';
+import 'bootstrap/dist/css/bootstrap.css';
 
 const { Sider, Content, Footer } = Layout;
 
@@ -29,7 +30,7 @@ export default function RootLayout({ children }: { children: any }) {
       <head />
       <body>
         <Layout>
-          <Sider trigger={null}>
+          {/* <Sider trigger={null}>
             <Menu
               theme="dark"
               mode="inline"
@@ -41,29 +42,9 @@ export default function RootLayout({ children }: { children: any }) {
                   icon: <PieChartOutlined />,
                   label: <NavLink href="/">Dashboard</NavLink>,
                 },
-                {
-                  key: '2',
-                  icon: <SlidersOutlined />,
-                  label: <NavLink href="/assets">Ativos</NavLink>,
-                },
-                {
-                  key: '3',
-                  icon: <TeamOutlined />,
-                  label: <NavLink href="/users">Usuários</NavLink>,
-                },
-                {
-                  key: '4',
-                  icon: <DeploymentUnitOutlined />,
-                  label: <NavLink href="/units">Unidades</NavLink>,
-                },
-                {
-                  key: '5',
-                  icon: <UnorderedListOutlined />,
-                  label: <NavLink href="/companies">Empresas</NavLink>,
-                },
               ]}
             />
-          </Sider>
+          </Sider> */}
           <Layout className="site-layout">
             <HeaderComponent />
             <Content
@@ -72,7 +53,7 @@ export default function RootLayout({ children }: { children: any }) {
                 padding: 24,
                 height: '52rem',
                 background: colorBgContainer,
-                overflow: 'auto',
+                // overflow: 'auto',
               }}
             >
               {children}
