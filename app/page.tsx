@@ -38,19 +38,58 @@ export default function Home() {
   ];
 
   const handleChange = async (v: any) => {
-    const start = moment(v[0].$d).unix();
-    const end = moment(v[1].$d).unix();
+    const start = moment(v[0].$d);
+    const end = moment(v[1].$d);
 
     setLoading(true);
 
+    const distanceMonth = end.diff(start, 'month') + 1;
+    const distances = [];
+    const dataAll: any = [];
+
+    if (distanceMonth <= 3) {
+      distances.push({
+        end: end.unix(),
+        start: start.unix(),
+      });
+    } else {
+      for (let i = 0; i < distanceMonth; i += 3) {
+        distances.push({
+          end: moment(moment(end))
+            .subtract((i / 3) * 90, 'days')
+            .unix(),
+          start:
+            moment(end)
+              .subtract((i / 3 + 1) * 90, 'days')
+              .diff(moment(start), 'days') < 0
+              ? moment(start).unix()
+              : moment(end)
+                  .subtract((i / 3 + 1) * 90, 'days')
+                  .unix(),
+        });
+      }
+    }
+
+    const requests = distances.map((item) => {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(`/api?start=${item.start}&end=${item.end}&name=${name}`, {})
+          .then(({ data }) => resolve(data))
+          .catch((error) => reject(error));
+      });
+    });
+
     try {
-      const { data } = await axios.get(
-        `/api?start=${start}&end=${end}&name=${name}`
+      const result = await Promise.all(requests);
+
+      result.map((r: any) => r.data.quotes.map((q: any) => dataAll.push(q)));
+
+      const dataAllSort = dataAll.sort(
+        (a: any, b: any) => Date.parse(b.timeOpen) - Date.parse(a.timeOpen)
       );
-      setQuotes(data.data.quotes);
-      setName(data.data.name);
+
+      setQuotes(dataAllSort);
       setLoading(false);
-      console.log(data.data.quotes);
     } catch (error) {
       setLoading(false);
     }
@@ -64,6 +103,7 @@ export default function Home() {
 
   const exportVolume = () => {
     setLoading(true);
+
     const result = quotes.map((d: any) => ({
       ['Date']: moment(d.timeOpen).format('DD-MM-YYYY'),
       ['volume']: d.quote.volume,
