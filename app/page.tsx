@@ -90,7 +90,8 @@ export default function Home() {
         <Input placeholder="Link Coinmaketcap" onChange={handleChangeSlug} />
         {name && (
           <div className="d-flex align-items-center">
-            <RangePicker onChange={handleChange} className="my-4" />
+            <h3 className="">{name}</h3>
+            <RangePicker onChange={handleChange} className="my-4 mx-2" />
             <Button type="primary" onClick={exportVolume} className="mx-2">
               Export Volume
             </Button>
