@@ -1,34 +1,74 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div align="center">
+
+  <img src="https://user-images.githubusercontent.com/65451957/206251166-f0d923a6-18d0-400c-845b-065092c9b29a.png" />
+  
+  <p>Application for users to consult the list of all assets 🔧💻🚜</p>
+  
+  <a href="https://twitter.com/intent/follow?screen_name=biantris_">
+     <img src="https://img.shields.io/twitter/follow/biantris_?style=social&logo=twitter"
+      alt="follow on Twitter">
+  </a>
+  
+  ![image](https://user-images.githubusercontent.com/65451957/206830693-88db2615-42fe-4305-b51c-2deeb9f4a510.png)
+
+</div>
+
+## Stack
+
+#### ➜ Root
+- [x] Linter (Eslint)
+- [x] Prettier
+- [x] Editorconfig
+- [x] Lint staged
+- [x] Pre-commit
+- [x] Dependabot
+- [x] CI/CD w/ Github Actions
+
+#### ➜ Web
+- [x] TypeScript
+- [x] Nextjs v13
+- [x] Fetch API
+- [x] Ant Design UI
+- [x] react-chartjs-2
+- [ ] Jest + Testing Library
+- [ ] Storybook
+
+## Project architecture
+`🚧 wip 🚧`
 
 ## Getting Started
+- clone this repo
 
-First, run the development server:
+```sh
+# install dependencies
+> yarn
+# or
+> yarn install
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+# start project
+> yarn dev
+
+# open in
+http://localhost:3000
 ```
+## Run Storybook
+`🚧 wip 🚧`
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Engine Locking
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+We would like for all developers working on this project to use the same Node engine and package manager we are using.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- .nvmrc - Will tell other uses of the project which version of Node is used
+- .npmrc - Will tell other users of the project which package manager is used
 
-## Learn More
+## Testing
 
-To learn more about Next.js, take a look at the following resources:
+`🚧 wip 🚧`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Git Hooks
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- [Husky](https://typicode.github.io/husky/#/): Husky is a tool for running scripts at different stages of the git process, for example add, commit, push, etc. We would like to be able to set certain conditions, and only allow things like commit and push to succeed if our code meets those conditions, presuming that it indicates our project is of acceptable quality.
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Demo
+🔗 https://dash-biantris.vercel.app/
