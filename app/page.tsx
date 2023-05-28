@@ -1,17 +1,12 @@
 'use client';
-import { Card, Col, Row, Table, Typography } from 'antd';
-import { BarChart } from '../components/barChart';
-import { CardAsset } from '../components/cards/cardAsset';
-import { CardCompany } from '../components/cards/cardCompany';
-import { CardUnit } from '../components/cards/cardUnit';
-import { CardUser } from '../components/cards/cardUser';
-import { PieChart } from '../components/pieChart';
-import NavLink from './nav-link';
+import { Button, Table, message } from 'antd';
+import { useEffect, useState } from 'react';
 import { DatePicker, Space } from 'antd';
 import moment from 'moment-timezone';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
 import { Input } from 'antd';
+import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver';
 
 const { RangePicker } = DatePicker;
 
@@ -52,10 +47,10 @@ export default function Home() {
       const { data } = await axios.get(
         `/api?start=${start}&end=${end}&name=${name}`
       );
-      console.log(data);
       setQuotes(data.data.quotes);
       setName(data.data.name);
       setLoading(false);
+      console.log(data.data.quotes);
     } catch (error) {
       setLoading(false);
     }
@@ -67,11 +62,40 @@ export default function Home() {
 
   useEffect(() => {}, [quotes]);
 
+  const exportVolume = () => {
+    setLoading(true);
+    const result = quotes.map((d: any) => ({
+      ['Date']: moment(d.timeOpen).format('DD-MM-YYYY'),
+      ['volume']: d.quote.volume,
+    }));
+
+    const fileType =
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    const fileExtension = '.xlsx';
+
+    const ws = XLSX.utils.json_to_sheet(result);
+    const wb = { Sheets: { data: ws }, SheetNames: ['data'] };
+    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    const data = new Blob([excelBuffer], { type: fileType });
+    FileSaver.saveAs(data, `volume-triet` + fileExtension);
+
+    setLoading(false);
+
+    message.success('Exports success!');
+  };
+
   return (
     <>
       <div className="container mb-4">
         <Input placeholder="Link Coinmaketcap" onChange={handleChangeSlug} />
-        {name && <RangePicker onChange={handleChange} className="my-4" />}
+        {name && (
+          <div className="d-flex align-items-center">
+            <RangePicker onChange={handleChange} className="my-4" />
+            <Button type="primary" onClick={exportVolume} className="mx-2">
+              Export Volume
+            </Button>
+          </div>
+        )}
         <Table
           columns={columns}
           dataSource={quotes}
