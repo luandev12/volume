@@ -123,9 +123,10 @@ export default function Home() {
   };
 
   const getTotal = () => {
+    const volumn = quotes?.map((q: any) => q.quote.volume);
+
     return (
-      quotes.map((q: any) => q.quote.volume).reduce((a, b) => a + b) /
-      quotes.length
+      [...volumn, 0]?.reduce((a, b) => a + b) / quotes.length
     ).toLocaleString('en-US', {
       style: 'currency',
       currency: 'USD',
@@ -143,7 +144,7 @@ export default function Home() {
             <Button type="primary" onClick={exportVolume} className="mx-2">
               Export Volume
             </Button>
-            <h3 className="">{getTotal()}</h3>
+            <h3 className="">{getTotal() || 0}</h3>
           </div>
         )}
         <Table
