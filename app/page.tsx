@@ -1,12 +1,10 @@
 'use client';
-import { Button, Table, message } from 'antd';
-import { useEffect, useState } from 'react';
-import { DatePicker, Space } from 'antd';
-import moment from 'moment-timezone';
+import { Button, DatePicker, Input, Table, message } from 'antd';
 import axios from 'axios';
-import { Input } from 'antd';
-import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
+import moment from 'moment-timezone';
+import { useEffect, useState } from 'react';
+import * as XLSX from 'xlsx';
 
 const { RangePicker } = DatePicker;
 
@@ -124,6 +122,16 @@ export default function Home() {
     message.success('Exports success!');
   };
 
+  const getTotal = () => {
+    return (
+      quotes.map((q: any) => q.quote.volume).reduce((a, b) => a + b) /
+      quotes.length
+    ).toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    });
+  };
+
   return (
     <>
       <div className="container mb-4">
@@ -135,6 +143,7 @@ export default function Home() {
             <Button type="primary" onClick={exportVolume} className="mx-2">
               Export Volume
             </Button>
+            <h3 className="">{getTotal()}</h3>
           </div>
         )}
         <Table
