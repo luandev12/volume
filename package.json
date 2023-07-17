@@ -24,7 +24,7 @@
     "bootstrap": "^5.2.3",
     "chart.js": "^4.3.0",
     "eslint": "8.41.0",
-    "eslint-config-next": "13.4.4",
+    "eslint-config-next": "13.4.10",
     "file-saver": "^2.0.5",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.43",
